@@ -1,0 +1,60 @@
+let Client=require('mongodb').MongoClient
+let AtlasUrl= 'mongodb+srv://userName:password@cluster0.rtqawsa.mongodb.net/?retryWrites=true&w=majority'
+let Confiq={
+
+    useUnifiedTopology: true
+}
+Client.connect(AtlasUrl,Confiq,(err,Database)=>{
+    if (err){
+        console.log('Database Connection Faild')
+    }
+    else{
+        console.log('Database Connected!')
+
+        // inserData(Database)
+        // DataDelete(Database)
+        DeleteAllItem(Database)
+    }
+})
+
+            /** Data  insert */
+const inserData=(Database)=>{
+    let DBO= Database.db("School")
+    let DBCollection= DBO.collection("Students")
+    MyData=[
+        { name: 'Gourav', age: 25},
+        { name: 'Kartik', age: 20},
+        { name: 'Niharika', age: 26}
+    ]
+
+                 /**insertMany Data */
+    DBCollection.insertMany(MyData,(err,res)=>{
+        if(err){
+            console.log("Data Insert Faild")
+        }
+        else{
+            console.log("Data Insert Succesfully")
+            Database.close()
+            
+        }
+    })
+
+}
+
+const DeleteAllItem=(Database)=>{
+    let Mydatabase = Database.db("School")
+    let MyCollection=Mydatabase.collection("Students")
+
+    MyCollection.deleteMany((err,obj)=>{
+        if(err){
+            console.log("Data Delete Faild.!")
+        }
+        else{
+            console.log("Data Deleted...!  " + obj.result.n +"Items")
+            
+            Database.close()
+        }
+    })
+}
+
+
