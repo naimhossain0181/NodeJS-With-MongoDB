@@ -50,7 +50,7 @@ const DeleteAllItem=(Database)=>{
             console.log("Data Delete Faild.!")
         }
         else{
-            console.log("Data Deleted...!  " + obj.result.n +"Items")
+            console.log("Data Deleted...!  " + obj.deletedCount +"Items")
             
             Database.close()
         }
