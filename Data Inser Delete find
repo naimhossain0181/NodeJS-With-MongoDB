@@ -1,5 +1,5 @@
 let Client=require('mongodb').MongoClient
-let AtlasUrl= 'mongodb+srv://mdnaim0181:708090@cluster0.rtqawsa.mongodb.net/?retryWrites=true&w=majority'
+let AtlasUrl= 'mongodb+srv://userName:Password@cluster0.rtqawsa.mongodb.net/?retryWrites=true&w=majority'
 let Confiq={
 
     useUnifiedTopology: true
