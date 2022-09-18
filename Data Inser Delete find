@@ -1,5 +1,5 @@
 let Client=require('mongodb').MongoClient
-let AtlasUrl= 'mongodb+srv://userName:password@cluster0.rtqawsa.mongodb.net/?retryWrites=true&w=majority'
+let AtlasUrl= 'mongodb+srv://mdnaim0181:708090@cluster0.rtqawsa.mongodb.net/?retryWrites=true&w=majority'
 let Confiq={
 
     useUnifiedTopology: true
@@ -10,15 +10,36 @@ Client.connect(AtlasUrl,Confiq,(err,Database)=>{
     }
     else{
         console.log('Database Connected!')
-
-        // inserData(Database)
-        // DataDelete(Database)
+        // inserOne(Database)
+        // inserMany(Database)
+        // DeleteOne(Database)
         DeleteAllItem(Database)
     }
 })
+            /**insert one item */
+const inserOne=(Database)=>{
+    let DBO= Database.db("School")
+    let DBCollection= DBO.collection("Students")
 
-            /** Data  insert */
-const inserData=(Database)=>{
+    MyData=
+        { name: 'Gourav', age: 25},    
+
+                 /**insertMany Data */
+    DBCollection.insertOne(MyData,(err,res)=>{
+        if(err){
+            console.log("Data Insert Faild")
+        }
+        else{
+            console.log("Data Insert Succesfully")
+            Database.close()
+            
+        }
+    })
+
+}
+
+            /** insert Many */
+const inserMany=(Database)=>{
     let DBO= Database.db("School")
     let DBCollection= DBO.collection("Students")
     MyData=[
@@ -41,16 +62,33 @@ const inserData=(Database)=>{
 
 }
 
-const DeleteAllItem=(Database)=>{
+/**Delete One Items */
+const DeleteOne=(Database)=>{
     let Mydatabase = Database.db("School")
     let MyCollection=Mydatabase.collection("Students")
-
-    MyCollection.deleteMany((err,obj)=>{
+    let query ={age:25}
+    MyCollection.deleteOne(query,(err,obj)=>{
         if(err){
             console.log("Data Delete Faild.!")
         }
         else{
-            console.log("Data Deleted...!  " + obj.deletedCount +"Items")
+            console.log("Data Deleted...!  ")
+            
+            Database.close()
+        }
+    })
+}
+        /**Delete All data */
+const DeleteAllItem=(Database)=>{
+    let Mydatabase = Database.db("School")
+    let MyCollection=Mydatabase.collection("Students")
+
+    MyCollection.deleteMany({},(err,obj)=>{
+        if(err){
+            console.log("Data Delete Faild.!")
+        }
+        else{
+            console.log("Deleted Item " + obj.deletedCount)
             
             Database.close()
         }
